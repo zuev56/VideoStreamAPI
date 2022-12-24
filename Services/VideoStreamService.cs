@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Nager.VideoStream;
 
-namespace RtspAPI.Services;
+namespace VideoStreamAPI.Services;
 
 public sealed class VideoStreamService
 {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RtspAPI;
+using VideoStreamAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 

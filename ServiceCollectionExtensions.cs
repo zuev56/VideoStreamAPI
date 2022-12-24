@@ -2,9 +2,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Nager.VideoStream;
-using RtspAPI.Services;
+using VideoStreamAPI.Services;
 
-namespace RtspAPI;
+namespace VideoStreamAPI;
 
 public static class ServiceCollectionExtensions
 {

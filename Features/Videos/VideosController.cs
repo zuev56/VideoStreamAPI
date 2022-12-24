@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 
-namespace RtspAPI.Features.Videos;
+namespace VideoStreamAPI.Features.Videos;
 
 [ApiController]
 [Route("[controller]")]

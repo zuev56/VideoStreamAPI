@@ -1,9 +1,8 @@
-using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using RtspAPI.Services;
+using VideoStreamAPI.Services;
 
-namespace RtspAPI.Features.Photos;
+namespace VideoStreamAPI.Features.Photos;
 
 [ApiController]
 [Route("[controller]")]
