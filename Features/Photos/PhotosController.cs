@@ -1,4 +1,7 @@
+using System.Net.Mime;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RtspAPI.Services;
 
 namespace RtspAPI.Features.Photos;
 
@@ -6,17 +9,17 @@ namespace RtspAPI.Features.Photos;
 [Route("[controller]")]
 public class PhotosController : ControllerBase
 {
-    private readonly ILogger<PhotosController> _logger;
+    private readonly VideoStreamService _videoStreamService;
 
-    public PhotosController(ILogger<PhotosController> logger)
+    public PhotosController(VideoStreamService videoStreamService)
     {
-        _logger = logger;
+        _videoStreamService = videoStreamService;
     }
 
     [HttpGet]
-    public byte[] Get()
+    public async Task<IActionResult> Get()
     {
-        throw new NotImplementedException();
-        return Array.Empty<byte>();
+        var imageData = await _videoStreamService.CreateImageAsync();
+        return File(imageData, "image/png");
     }
 }
