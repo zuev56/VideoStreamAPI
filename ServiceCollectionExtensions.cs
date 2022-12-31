@@ -20,17 +20,17 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddVideoStreamService(this IServiceCollection services)
+    public static IServiceCollection AddRtspImageService(this IServiceCollection services)
     {
-        services.AddScoped<VideoStreamService>(sp =>
+        services.AddScoped<RtspImageService>(sp =>
         {
             var videoStreamClient = sp.GetRequiredService<VideoStreamClient>();
             var configuration = sp.GetRequiredService<IConfiguration>();
             var rtspStreamUri = configuration["RtspStreamUri"];
             var workingDirectory = configuration["WorkingDirectory"];
-            var logger = sp.GetRequiredService<ILogger<VideoStreamService>>();
+            var logger = sp.GetRequiredService<ILogger<RtspImageService>>();
 
-            return new VideoStreamService(videoStreamClient, rtspStreamUri, workingDirectory, logger);
+            return new RtspImageService(videoStreamClient, rtspStreamUri, workingDirectory, logger);
         });
 
         return services;
