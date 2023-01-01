@@ -35,4 +35,18 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+
+    public static IServiceCollection AddVideoFilesProvider(this IServiceCollection services)
+    {
+        services.AddScoped<VideoFilesProvider>(sp =>
+        {
+            var configuration = sp.GetRequiredService<IConfiguration>();
+            var workingDirectory = configuration["WorkingDirectory"];
+            var videoFilesName = configuration["VideoFilesName"];
+
+            return new VideoFilesProvider(workingDirectory, videoFilesName);
+        });
+
+        return services;
+    }
 }

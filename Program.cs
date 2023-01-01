@@ -12,7 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services
     .AddVideoStreamClient()
-    .AddRtspImageService();
+    .AddRtspImageService()
+    .AddVideoFilesProvider();
 
 var app = builder.Build();
 
