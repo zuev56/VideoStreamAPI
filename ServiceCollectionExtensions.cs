@@ -27,7 +27,7 @@ public static class ServiceCollectionExtensions
             var videoStreamClient = sp.GetRequiredService<VideoStreamClient>();
             var configuration = sp.GetRequiredService<IConfiguration>();
             var rtspStreamUri = configuration["RtspStreamUri"];
-            var workingDirectory = configuration["WorkingDirectory"];
+            var workingDirectory = configuration["ImagesDirectory"];
             var logger = sp.GetRequiredService<ILogger<RtspImageService>>();
 
             return new RtspImageService(videoStreamClient, rtspStreamUri, workingDirectory, logger);
@@ -41,7 +41,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<VideoFilesProvider>(sp =>
         {
             var configuration = sp.GetRequiredService<IConfiguration>();
-            var workingDirectory = configuration["WorkingDirectory"];
+            var workingDirectory = configuration["VideosDirectory"];
             var videoFilesName = configuration["VideoFilesName"];
 
             return new VideoFilesProvider(workingDirectory, videoFilesName);

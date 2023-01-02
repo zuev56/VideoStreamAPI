@@ -11,18 +11,18 @@ public sealed class RtspImageService
 {
     private readonly VideoStreamClient _videoStreamClient;
     private readonly string _rtspStreamUri;
-    private readonly string _workingDirectory;
+    private readonly string _imagesDirectory;
     private readonly ILogger<RtspImageService> _logger;
 
     public RtspImageService(
         VideoStreamClient videoStreamClient,
         string rtspStreamUri,
-        string workingDirectory,
+        string imagesDirectory,
         ILogger<RtspImageService> logger)
     {
         _videoStreamClient = videoStreamClient;
         _rtspStreamUri = rtspStreamUri;
-        _workingDirectory = workingDirectory.TrimEnd('/');
+        _imagesDirectory = imagesDirectory;
         _logger = logger;
     }
 
@@ -32,7 +32,7 @@ public sealed class RtspImageService
         //var inputSource = new WebcamInputSource("Microsoft® LifeCam HD-3000");
 
         var cts = new CancellationTokenSource();
-        var imagePath = $"{_workingDirectory}/img_{DateTime.Now:yyMMdd_HHmmss}.png";
+        var imagePath = Path.Combine(_imagesDirectory, $"img_{DateTime.Now:yyMMdd_HHmmss}.png");
         _videoStreamClient.NewImageReceived += NewImageReceived;
         
         await _videoStreamClient.StartFrameReaderAsync(inputSource, OutputImageFormat.Png, cts.Token);
