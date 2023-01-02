@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace VideoStreamAPI.Features.Videos;
 
 [ApiController]
-[Route("[controller]")]
+[Route("video/[controller]")]
 public class M3u8Controller : ControllerBase
 {
     private readonly VideoFilesProvider _videoFilesProvider;
@@ -17,6 +17,7 @@ public class M3u8Controller : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAsync()
     {
+        Response.Headers.Add("Access-Control-Allow-Origin", "*");
         var m3u8Bytes = await _videoFilesProvider.GetM3u8Async();
         return File(m3u8Bytes, "application/octet-stream", enableRangeProcessing: true);
     }
