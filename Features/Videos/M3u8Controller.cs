@@ -5,6 +5,7 @@ namespace VideoStreamAPI.Features.Videos;
 
 [ApiController]
 [Route("video/[controller]")]
+[Route("[controller]")]
 public class M3u8Controller : ControllerBase
 {
     private readonly VideoFilesProvider _videoFilesProvider;
@@ -19,6 +20,9 @@ public class M3u8Controller : ControllerBase
     {
         Response.Headers.Add("Access-Control-Allow-Origin", "*");
         var m3u8Bytes = await _videoFilesProvider.GetM3u8Async();
-        return File(m3u8Bytes, "application/octet-stream", enableRangeProcessing: true);
+        
+        return m3u8Bytes != null
+            ? File(m3u8Bytes, "application/octet-stream", enableRangeProcessing: true)
+            : NotFound();
     }
 }

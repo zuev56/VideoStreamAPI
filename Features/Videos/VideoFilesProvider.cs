@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -14,18 +15,24 @@ public sealed class VideoFilesProvider
         _videoFileName = videoFileName;
     }
 
-    public async Task<byte[]> GetM3u8Async()
+    public async Task<byte[]?> GetM3u8Async()
     {
         var m3u8FilePath = Path.Combine(_workingDirectory, $"{_videoFileName}.m3u8");
-        var m3u8FileBytes = await File.ReadAllBytesAsync(m3u8FilePath);
+
+        var m3u8FileBytes = File.Exists(m3u8FilePath)
+            ? await File.ReadAllBytesAsync(m3u8FilePath)
+            : null;
 
         return m3u8FileBytes;
     }
 
-    public async Task<byte[]> GetTsAsync(string tsFileName)
+    public async Task<byte[]?> GetTsAsync(string tsFileName)
     {
         var tsFilePath = Path.Combine(_workingDirectory, tsFileName);
-        var tsFileBytes = await File.ReadAllBytesAsync(tsFilePath);
+        
+        var tsFileBytes = File.Exists(tsFilePath)
+            ? await File.ReadAllBytesAsync(tsFilePath)
+            : null;
         
         return tsFileBytes;
     }

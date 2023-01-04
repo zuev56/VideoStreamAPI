@@ -21,6 +21,9 @@ public class TsController : ControllerBase
     {
         Response.Headers.Add("Access-Control-Allow-Origin", "*");
         var tsBytes = await _videoFilesProvider.GetTsAsync(fileName);
-        return File(tsBytes, "application/octet-stream", enableRangeProcessing: true);
+
+        return tsBytes != null
+            ? File(tsBytes, "application/octet-stream", enableRangeProcessing: true)
+            : NotFound();
     }
 }
