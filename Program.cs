@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VideoStreamAPI;
 
@@ -21,11 +22,13 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseCors(
-    options => options
-        .AllowAnyOrigin()
-        .AllowAnyMethod()
-);
+app.UseCors(options =>
+{
+    var origins = app.Configuration.GetSection("CorsPolicy:Origins").Get<string[]>();
+    options
+        .WithMethods("GET")
+        .WithOrigins(origins);
+});
 
 app.UseHttpsRedirection();
 
