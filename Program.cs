@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VideoStreamAPI;
@@ -15,10 +16,18 @@ builder.Services
     .AddVideoStreamClient()
     .AddRtspImageService()
     .AddVideoFilesProvider();
+    
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders =
+        ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseForwardedHeaders();
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
