@@ -6,19 +6,19 @@ namespace VideoStreamAPI.Features.Photos;
 
 [ApiController]
 [Route("[controller]")]
-public class PhotosController : ControllerBase
+public class PhotoController : ControllerBase
 {
-    private readonly VideoStreamService _videoStreamService;
+    private readonly RtspImageService _rtspImageService;
 
-    public PhotosController(VideoStreamService videoStreamService)
+    public PhotoController(RtspImageService rtspImageService)
     {
-        _videoStreamService = videoStreamService;
+        _rtspImageService = rtspImageService;
     }
 
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        var imageData = await _videoStreamService.CreateImageAsync();
+        var imageData = await _rtspImageService.CreateImageAsync();
         return File(imageData, "image/png");
     }
 }

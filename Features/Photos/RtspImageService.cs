@@ -7,22 +7,22 @@ using Nager.VideoStream;
 
 namespace VideoStreamAPI.Services;
 
-public sealed class VideoStreamService
+public sealed class RtspImageService
 {
     private readonly VideoStreamClient _videoStreamClient;
     private readonly string _rtspStreamUri;
-    private readonly string _workingDirectory;
-    private readonly ILogger<VideoStreamService> _logger;
+    private readonly string _imagesDirectory;
+    private readonly ILogger<RtspImageService> _logger;
 
-    public VideoStreamService(
+    public RtspImageService(
         VideoStreamClient videoStreamClient,
         string rtspStreamUri,
-        string workingDirectory,
-        ILogger<VideoStreamService> logger)
+        string imagesDirectory,
+        ILogger<RtspImageService> logger)
     {
         _videoStreamClient = videoStreamClient;
         _rtspStreamUri = rtspStreamUri;
-        _workingDirectory = workingDirectory.TrimEnd('/');
+        _imagesDirectory = imagesDirectory;
         _logger = logger;
     }
 
@@ -32,7 +32,7 @@ public sealed class VideoStreamService
         //var inputSource = new WebcamInputSource("Microsoft® LifeCam HD-3000");
 
         var cts = new CancellationTokenSource();
-        var imagePath = $"{_workingDirectory}/img_{DateTime.Now:yyMMdd_HHmmss}.png";
+        var imagePath = Path.Combine(_imagesDirectory, $"img_{DateTime.Now:yyMMdd_HHmmss}.png");
         _videoStreamClient.NewImageReceived += NewImageReceived;
         
         await _videoStreamClient.StartFrameReaderAsync(inputSource, OutputImageFormat.Png, cts.Token);
